@@ -7,8 +7,11 @@ export default function ArticlePage() {
   const [formatId, setFormatId] = useState(defaultFormats[0].id);
   const { completion, input, handleInputChange, handleSubmit, isLoading, error } =
     useCompletion({
+      headers: {
+        'Content-Type': 'application/json',
+      },
       api: '/api/generate',
-      body: { formatId, prompt: input },
+      body: { formatId },
       streamProtocol: 'text',
     });
 
