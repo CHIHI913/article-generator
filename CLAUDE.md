@@ -6,7 +6,7 @@
 
 **開発作業を開始する前に、必ず以下を確認してください:**
 
-1. **`PROJECT-TODO.md`** - プロジェクト全体の開発タスク一覧を確認
+1. **`.claude/todo.md`** - プロジェクト全体の開発タスク一覧を確認
 2. **`.claude/development-workflow.md`** - 開発ワークフロー規則を確認
 3. **`temp/current-task.md`** - 現在の作業タスクを作成・更新
 4. **🚨 実装前必須**: 適切なfeatureブランチ作成・切り替え
@@ -16,6 +16,7 @@
 
 このプロジェクトは構造化された知識管理システムを使用しています。詳細については以下を参照してください：
 
+- `.claude/todo.md` - **プロジェクト開発タスク一覧と進捗管理**
 - `.claude/context.md` - プロジェクトの背景、制約、現在の状況
 - `.claude/project-knowledge.md` - 技術的洞察と実装パターン
 - `.claude/project-improvements.md` - 開発履歴と改善計画

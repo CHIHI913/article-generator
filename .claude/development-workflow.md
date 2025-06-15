@@ -3,14 +3,14 @@
 ## 基本ルール
 
 ### 1. 開発開始時の必須手順
-1. **最初に必ず `PROJECT-TODO.md` を確認する**
+1. **最初に必ず `.claude/todo.md` を確認する**
 2. **作業用 `temp/current-task.md` ファイルを作成**
 3. **Claude Code の TodoWrite ツールでタスクを管理**
 
 ### 2. ファイル構成
 
 #### プロジェクト管理ファイル
-- `PROJECT-TODO.md` - プロジェクト全体の開発ToDo（優先度・ステータス付き）
+- `.claude/todo.md` - プロジェクト全体の開発ToDo（番号付きチェックリスト）
 - `.claude/development-workflow.md` - 本ワークフロー規則（このファイル）
 
 #### 一時作業ファイル（コミット対象外）
@@ -23,7 +23,7 @@
 #### ステップ1: タスク確認・選択
 ```bash
 # 1. プロジェクト全体TODO確認
-cat PROJECT-TODO.md
+cat .claude/todo.md
 
 # 2. 現在のgitステータス確認
 git status
@@ -68,7 +68,7 @@ echo "# 現在の作業タスク
 4. 動作確認
 
 #### ステップ4: 完了・更新 🚨 CRITICAL STEP
-1. `PROJECT-TODO.md` のステータス更新
+1. `.claude/todo.md` のステータス更新
 2. tempファイルのクリーンアップ（必要に応じて）
 3. **必須**: コミット・プッシュ・PR作成まで完了
 4. developブランチにマージ
@@ -78,8 +78,8 @@ git add .
 git commit -m "feat: [実装内容]"
 git push origin feature/[タスク名]
 
-# PRを作成（日本語で記述）
-gh pr create --title "機能追加: [実装内容]" --body "## 概要\n[変更内容を日本語で記述]"
+# PRを作成（日本語で記述、必ずdevelopベース）
+gh pr create --base develop --title "機能追加: [実装内容]" --body "## 概要\n[変更内容を日本語で記述]"
 
 # developにマージ（PRまたは直接マージ）
 git checkout develop
@@ -93,7 +93,7 @@ git branch -d feature/[タスク名]
 ### 4. ファイル管理ルール
 
 #### コミット対象
-- ✅ `PROJECT-TODO.md`
+- ✅ `.claude/todo.md`
 - ✅ `.claude/development-workflow.md`
 - ✅ 実装したソースコード
 
@@ -104,12 +104,13 @@ git branch -d feature/[タスク名]
 ### 5. Claude Code 使用時の注意
 
 1. **必ず TodoWrite ツールを使用**してタスク管理
-2. **開発開始時に PROJECT-TODO.md を確認**
+2. **開発開始時に .claude/todo.md を確認**
 3. **temp/current-task.md で作業内容を明確化**
 4. **完了時は必ずステータス更新**
 5. **🚨 CRITICAL: 実装作業前に必ずブランチ作成・切り替え**
 6. **🚨 CRITICAL: 実装完了後は必ずコミット・プッシュ・PR作成まで完了**
-7. **PR作成時は必ず日本語でタイトル・本文を記述**（プロジェクト規約）
+7. **🚨 CRITICAL: PR作成時は必ず--base developを指定**（masterではなくdevelop）
+8. **PR作成時は必ず日本語でタイトル・本文を記述**（プロジェクト規約）
 
 ### 6. Git ブランチ運用ルール
 
