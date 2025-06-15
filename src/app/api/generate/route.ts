@@ -30,7 +30,7 @@ export async function POST(req: Request) {
       maxTokens: 2048,
     });
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
   } catch (e: unknown) {
     console.error(e);
     return new Response('Internal Error', { status: 500 });
