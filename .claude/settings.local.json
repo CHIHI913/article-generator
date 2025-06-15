@@ -20,7 +20,8 @@
       "Bash(rm:*)",
       "Bash(git pull:*)",
       "Bash(npm install:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(git reset:*)"
     ],
     "deny": []
   }
