@@ -2,6 +2,16 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project Knowledge System
+
+This project uses a structured knowledge management system. For detailed information, refer to:
+
+- `.claude/context.md` - Project background, constraints, and current status
+- `.claude/project-knowledge.md` - Technical insights and implementation patterns
+- `.claude/project-improvements.md` - Development history and planned improvements
+- `.claude/common-patterns.md` - Frequently used code patterns and commands
+- `.claude/debug-log.md` - Troubleshooting guides and known issues
+
 ## Commands
 
 - `npm run dev --turbopack` - Start development server (uses Turbopack for faster builds)
@@ -9,35 +19,36 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm start` - Start production server
 - `npm run lint` - Run ESLint
 
-## Architecture
+## Architecture Overview
 
-This is a Next.js 15 article generator application that uses Vercel AI SDK to generate Japanese articles from text overviews.
+**記事生成アプリケーション** - A Next.js 15 application that generates Japanese articles from user-provided overviews using Vercel AI SDK and OpenAI GPT-4o.
 
-### Core Components
+### Core System Flow
+1. User inputs overview (10+ chars) + selects format → Frontend (`/src/app/article/page.tsx`)
+2. API request to `/api/generate` → Edge Function (`/src/app/api/generate/route.ts`)
+3. Format template + overview → Structured prompt for GPT-4o
+4. Streaming response → Real-time article generation display
 
-- **API Route**: `/src/app/api/generate/route.ts` - Edge function that streams article generation using OpenAI GPT-4o
-- **Format System**: `/src/lib/formats.ts` - Defines article templates (blog, news, SEO landing page)
-- **Main UI**: `/src/app/article/page.tsx` - Article generation interface with format selection and streaming output
+### Critical Implementation Details
 
-### Key Dependencies
+**Streaming Configuration** (Most Important):
+```typescript
+// Frontend: useCompletion hook
+streamProtocol: 'text'  // Must match API response type
 
-- `@ai-sdk/openai` and `@ai-sdk/react` - Vercel AI SDK for OpenAI integration
-- Uses Edge Runtime for fast response times
-- Streaming text generation with `useCompletion` hook
+// Backend: API route  
+return result.toTextStreamResponse();  // Matches 'text' protocol
+```
 
-### Data Flow
+**Format System**: Templates in `/src/lib/formats.ts` use `{{placeholder}}` syntax for dynamic content replacement.
 
-1. User inputs Japanese overview (min 10 characters) and selects format
-2. Frontend sends request to `/api/generate` with overview and formatId
-3. Backend constructs prompt using format template and overview
-4. Streams GPT-4o response back to frontend in real-time
-5. Generated article displayed in preview section
+**Edge Runtime**: All API routes use `export const runtime = 'edge'` for optimal performance.
 
-### Format Templates
+## Current Status
+- ✅ MVP article generation (blog, news, SEO formats)
+- ✅ Japanese-optimized prompts and UI
+- ❌ Multi-model support (planned)
+- ❌ User authentication (planned)
+- ❌ Article history/export (planned)
 
-Templates use `{{placeholder}}` syntax for dynamic content replacement. Current formats:
-- `blog` - Standard blog post structure
-- `news` - News article format
-- `seo` - SEO landing page template
-
-The system prompt instructs the AI to generate Japanese content in Markdown format and replace template placeholders appropriately.
+Read `.claude/context.md` for complete project context and constraints.
