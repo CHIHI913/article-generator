@@ -24,7 +24,9 @@
       "Bash(git reset:*)",
       "Bash(npx tsc:*)",
       "Bash(npm run dev:*)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(gh api:*)",
+      "Bash(gh repo edit:*)"
     ],
     "deny": []
   }
