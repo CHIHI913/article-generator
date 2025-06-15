@@ -8,7 +8,7 @@ export default function ArticlePage() {
   const { completion, input, handleInputChange, handleSubmit, isLoading, error } =
     useCompletion({
       api: '/api/generate',
-      body: { formatId },
+      body: { formatId, prompt: input },
       streamProtocol: 'text',
     });
 
