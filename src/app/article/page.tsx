@@ -1,10 +1,11 @@
 'use client';
 import { useCompletion } from '@ai-sdk/react';
-import { defaultFormats } from '@/lib/formats';
-import { useState } from 'react';
+import { Format } from '@/lib/formats';
+import { useState, useEffect } from 'react';
 
 export default function ArticlePage() {
-  const [formatId, setFormatId] = useState(defaultFormats[0].id);
+  const [formats, setFormats] = useState<Format[]>([]);
+  const [formatId, setFormatId] = useState('');
   const { completion, input, handleInputChange, handleSubmit, isLoading, error } =
     useCompletion({
       headers: {
@@ -14,6 +15,22 @@ export default function ArticlePage() {
       body: { formatId },
       streamProtocol: 'text',
     });
+
+  useEffect(() => {
+    const fetchFormats = async () => {
+      try {
+        const response = await fetch('/api/formats');
+        const data = await response.json();
+        setFormats(data.formats);
+        if (data.formats.length > 0) {
+          setFormatId(data.formats[0].id);
+        }
+      } catch (error) {
+        console.error('Failed to fetch formats:', error);
+      }
+    };
+    fetchFormats();
+  }, []);
 
   return (
     <main className="max-w-3xl mx-auto p-6 flex flex-col gap-6">
@@ -26,7 +43,7 @@ export default function ArticlePage() {
           onChange={(e) => setFormatId(e.target.value)}
           className="border p-2"
         >
-          {defaultFormats.map((f) => (
+          {formats.map((f) => (
             <option key={f.id} value={f.id}>
               {f.name}
             </option>

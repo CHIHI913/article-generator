@@ -6,7 +6,18 @@
       "Bash(git checkout:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run build:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git rm:*)",
+      "Bash(gh pr create:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rebase:*)",
+      "Bash(git stash:*)",
+      "Bash(find:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }
