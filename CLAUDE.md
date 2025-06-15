@@ -9,6 +9,8 @@
 1. **`PROJECT-TODO.md`** - プロジェクト全体の開発タスク一覧を確認
 2. **`.claude/development-workflow.md`** - 開発ワークフロー規則を確認
 3. **`temp/current-task.md`** - 現在の作業タスクを作成・更新
+4. **🚨 実装前必須**: 適切なfeatureブランチ作成・切り替え
+5. **🚨 実装後必須**: コミット・プッシュ・PR作成まで完了
 
 ## プロジェクト知識管理システム
 
@@ -52,12 +54,5 @@ return result.toTextStreamResponse();  // 'text'プロトコルと一致
 **フォーマットシステム**: `/src/lib/formats.ts`のテンプレートは動的コンテンツ置換に`{{placeholder}}`構文を使用。
 
 **Edge Runtime**: 最適なパフォーマンスのため、全APIルートで`export const runtime = 'edge'`を使用。
-
-## 現在の状況
-- ✅ MVP記事生成機能（ブログ、ニュース、SEOフォーマット）
-- ✅ 日本語最適化されたプロンプトとUI
-- ❌ マルチモデル対応（予定）
-- ❌ ユーザー認証（予定）
-- ❌ 記事履歴・エクスポート機能（予定）
 
 完全なプロジェクトコンテキストと制約については`.claude/context.md`を参照してください。
