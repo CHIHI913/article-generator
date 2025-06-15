@@ -41,6 +41,10 @@ export async function POST(req: Request) {
   });
 
   // Next.js 用 SSE 変換
+> **重要**: `useCompletion` で `streamProtocol: 'text'` を指定した場合、
+> API ルートは `toTextStreamResponse()` を返す必要があります。 `toDataStreamResponse()` と
+> 組み合わせると UI で `f:{"messageId":...}` のような生データが表示されるため注意してください。
+
   return result.toDataStreamResponse();
 }
 ```
