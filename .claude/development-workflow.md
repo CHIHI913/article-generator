@@ -33,9 +33,9 @@ git checkout develop
 git pull origin develop
 ```
 
-#### ステップ2: 作業準備
+#### ステップ2: 作業準備 🚨 CRITICAL STEP
 ```bash
-# 1. 新しいfeatureブランチ作成
+# 1. 新しいfeatureブランチ作成（必須！）
 git checkout -b feature/[タスク名]
 
 # 2. tempディレクトリ作成（存在しない場合）
@@ -67,16 +67,19 @@ echo "# 現在の作業タスク
 3. `npm run lint` で品質チェック
 4. 動作確認
 
-#### ステップ4: 完了・更新
+#### ステップ4: 完了・更新 🚨 CRITICAL STEP
 1. `PROJECT-TODO.md` のステータス更新
 2. tempファイルのクリーンアップ（必要に応じて）
-3. コミット（tempファイルは除外される）
+3. **必須**: コミット・プッシュ・PR作成まで完了
 4. developブランチにマージ
 ```bash
 # 作業完了後
 git add .
 git commit -m "feat: [実装内容]"
 git push origin feature/[タスク名]
+
+# PRを作成（日本語で記述）
+gh pr create --title "機能追加: [実装内容]" --body "## 概要\n[変更内容を日本語で記述]"
 
 # developにマージ（PRまたは直接マージ）
 git checkout develop
@@ -104,6 +107,9 @@ git branch -d feature/[タスク名]
 2. **開発開始時に PROJECT-TODO.md を確認**
 3. **temp/current-task.md で作業内容を明確化**
 4. **完了時は必ずステータス更新**
+5. **🚨 CRITICAL: 実装作業前に必ずブランチ作成・切り替え**
+6. **🚨 CRITICAL: 実装完了後は必ずコミット・プッシュ・PR作成まで完了**
+7. **PR作成時は必ず日本語でタイトル・本文を記述**（プロジェクト規約）
 
 ### 6. Git ブランチ運用ルール
 
