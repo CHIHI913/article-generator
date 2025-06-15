@@ -84,6 +84,8 @@
 - ホスティング: Vercel (Edge Functions 利用可)
 - 使用言語: TypeScript, Next.js 14 (app router)
 - AI SDK: `@vercel/ai` を必須利用
+- **ストリーミング種別ルール**: `useCompletion` フック側の `streamProtocol` と API ルートの `to*StreamResponse()` は必ず対応させること (`text` ↔ `toTextStreamResponse`, `data` ↔ `toDataStreamResponse`)。
+
 - モデル登録時、ユーザー責任でライセンス遵守
 
 ## 9. 画面一覧 (概要)
