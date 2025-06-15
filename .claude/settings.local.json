@@ -17,7 +17,8 @@
       "Bash(git rebase:*)",
       "Bash(git stash:*)",
       "Bash(find:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(git pull:*)"
     ],
     "deny": []
   }

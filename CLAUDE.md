@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 🚨 開発開始時の必須確認事項
+
+**開発作業を開始する前に、必ず以下を確認してください:**
+
+1. **`PROJECT-TODO.md`** - プロジェクト全体の開発タスク一覧を確認
+2. **`.claude/development-workflow.md`** - 開発ワークフロー規則を確認
+3. **`temp/current-task.md`** - 現在の作業タスクを作成・更新
+
 ## Project Knowledge System
 
 This project uses a structured knowledge management system. For detailed information, refer to:
@@ -11,6 +19,7 @@ This project uses a structured knowledge management system. For detailed informa
 - `.claude/project-improvements.md` - Development history and planned improvements
 - `.claude/common-patterns.md` - Frequently used code patterns and commands
 - `.claude/debug-log.md` - Troubleshooting guides and known issues
+- `.claude/development-workflow.md` - **開発ワークフロー規則**
 
 ## Commands
 
