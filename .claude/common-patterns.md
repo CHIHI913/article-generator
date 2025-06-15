@@ -34,6 +34,31 @@ git commit -m "feat: 新機能の説明"
 git push origin feature/new-feature-name
 ```
 
+### PR作成パターン
+```bash
+# GitHub CLI使用（推奨）
+gh pr create --base develop --title "feat: 機能名" --body "$(cat <<'EOF'
+## 概要
+- 実装した機能の概要を日本語で記載
+
+## 変更内容
+- 具体的な変更点をリスト形式で記載
+
+## テスト
+- 実施したテスト内容
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+EOF
+)"
+```
+
+**重要ルール**: 
+- PRタイトル・本文は日本語で作成
+- developブランチをベースとして指定
+- Claude Code生成の署名を含める
+
 ## コーディングパターン
 
 ### API ルート作成テンプレート
