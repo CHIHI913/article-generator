@@ -78,8 +78,8 @@ git add .
 git commit -m "feat: [実装内容]"
 git push origin feature/[タスク名]
 
-# PRを作成（日本語で記述）
-gh pr create --title "機能追加: [実装内容]" --body "## 概要\n[変更内容を日本語で記述]"
+# PRを作成（日本語で記述、必ずdevelopベース）
+gh pr create --base develop --title "機能追加: [実装内容]" --body "## 概要\n[変更内容を日本語で記述]"
 
 # developにマージ（PRまたは直接マージ）
 git checkout develop
@@ -109,7 +109,8 @@ git branch -d feature/[タスク名]
 4. **完了時は必ずステータス更新**
 5. **🚨 CRITICAL: 実装作業前に必ずブランチ作成・切り替え**
 6. **🚨 CRITICAL: 実装完了後は必ずコミット・プッシュ・PR作成まで完了**
-7. **PR作成時は必ず日本語でタイトル・本文を記述**（プロジェクト規約）
+7. **🚨 CRITICAL: PR作成時は必ず--base developを指定**（masterではなくdevelop）
+8. **PR作成時は必ず日本語でタイトル・本文を記述**（プロジェクト規約）
 
 ### 6. Git ブランチ運用ルール
 
