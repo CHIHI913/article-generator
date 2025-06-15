@@ -40,12 +40,11 @@ export async function POST(req: Request) {
       });
     }
 
-    const overview = hasProperty(body, 'overview') && isString(body.overview) ? body.overview : '';
     const prompt = hasProperty(body, 'prompt') && isString(body.prompt) ? body.prompt : '';
     const modelId = hasProperty(body, 'modelId') && isString(body.modelId) ? body.modelId : undefined;
     const formatId = body.formatId;
 
-    const ov = overview ?? prompt ?? '';
+    const ov = prompt;
 
     if (ov.length < 10) {
       return new Response(JSON.stringify({
