@@ -1,6 +1,6 @@
 import { streamText } from 'ai';
 import { openai } from '@ai-sdk/openai';
-import { defaultFormats } from '@/lib/formats';
+import { defaultFormats, Format } from '@/lib/formats';
 
 export const runtime = 'edge';
 
@@ -20,7 +20,18 @@ export async function POST(req: Request) {
       });
     }
 
-    const format = defaultFormats.find((f) => f.id === formatId) ?? defaultFormats[0];
+    let formats: Format[] = [...defaultFormats];
+    try {
+      const formatsResponse = await fetch(`${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}/api/formats`);
+      if (formatsResponse.ok) {
+        const data = await formatsResponse.json();
+        formats = data.formats;
+      }
+    } catch (error) {
+      console.warn('Failed to fetch formats, using defaults:', error);
+    }
+
+    const format = formats.find((f) => f.id === formatId) ?? formats[0];
 
     const result = streamText({
       model: openai('gpt-4o'),
