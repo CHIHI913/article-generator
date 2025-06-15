@@ -1,6 +1,7 @@
 import { streamText } from 'ai';
 import { defaultFormats, Format } from '@/lib/formats';
 import { models, getModelInstance } from '@/lib/models';
+import { isObject, hasProperty, isString } from '@/lib/type-guards';
 
 export const runtime = 'edge';
 
@@ -19,12 +20,30 @@ export async function POST(req: Request) {
       });
     }
 
-    const { overview, prompt, formatId, modelId } = body as {
-      overview?: string;
-      prompt?: string;
-      formatId: string;
-      modelId?: string;
-    };
+    if (!isObject(body)) {
+      return new Response(JSON.stringify({
+        error: 'リクエストボディが正しくありません。',
+        code: 'INVALID_BODY'
+      }), { 
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    if (!hasProperty(body, 'formatId') || !isString(body.formatId)) {
+      return new Response(JSON.stringify({
+        error: 'フォーマットIDが指定されていません。',
+        code: 'MISSING_FORMAT_ID'
+      }), { 
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    const overview = hasProperty(body, 'overview') && isString(body.overview) ? body.overview : '';
+    const prompt = hasProperty(body, 'prompt') && isString(body.prompt) ? body.prompt : '';
+    const modelId = hasProperty(body, 'modelId') && isString(body.modelId) ? body.modelId : undefined;
+    const formatId = body.formatId;
 
     const ov = overview ?? prompt ?? '';
 
