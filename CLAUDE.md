@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、このリポジトリでコードを扱う際のClaude Code（claude.ai/code）向けのガイダンスを提供します。
 
 ## 🚨 開発開始時の必須確認事項
 
@@ -10,54 +10,54 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 2. **`.claude/development-workflow.md`** - 開発ワークフロー規則を確認
 3. **`temp/current-task.md`** - 現在の作業タスクを作成・更新
 
-## Project Knowledge System
+## プロジェクト知識管理システム
 
-This project uses a structured knowledge management system. For detailed information, refer to:
+このプロジェクトは構造化された知識管理システムを使用しています。詳細については以下を参照してください：
 
-- `.claude/context.md` - Project background, constraints, and current status
-- `.claude/project-knowledge.md` - Technical insights and implementation patterns
-- `.claude/project-improvements.md` - Development history and planned improvements
-- `.claude/common-patterns.md` - Frequently used code patterns and commands
-- `.claude/debug-log.md` - Troubleshooting guides and known issues
+- `.claude/context.md` - プロジェクトの背景、制約、現在の状況
+- `.claude/project-knowledge.md` - 技術的洞察と実装パターン
+- `.claude/project-improvements.md` - 開発履歴と改善計画
+- `.claude/common-patterns.md` - よく使用されるコードパターンとコマンド
+- `.claude/debug-log.md` - トラブルシューティングガイドと既知の問題
 - `.claude/development-workflow.md` - **開発ワークフロー規則**
 
-## Commands
+## コマンド
 
-- `npm run dev --turbopack` - Start development server (uses Turbopack for faster builds)
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint
+- `npm run dev --turbopack` - 開発サーバー起動（高速ビルドのためTurbopackを使用）
+- `npm run build` - 本番用ビルド
+- `npm start` - 本番サーバー起動
+- `npm run lint` - ESLint実行
 
-## Architecture Overview
+## アーキテクチャ概要
 
-**記事生成アプリケーション** - A Next.js 15 application that generates Japanese articles from user-provided overviews using Vercel AI SDK and OpenAI GPT-4o.
+**記事生成アプリケーション** - Vercel AI SDKとOpenAI GPT-4oを使用して、ユーザー提供の概要から日本語記事を生成するNext.js 15アプリケーション。
 
-### Core System Flow
-1. User inputs overview (10+ chars) + selects format → Frontend (`/src/app/article/page.tsx`)
-2. API request to `/api/generate` → Edge Function (`/src/app/api/generate/route.ts`)
-3. Format template + overview → Structured prompt for GPT-4o
-4. Streaming response → Real-time article generation display
+### コアシステムフロー
+1. ユーザーが概要入力（10文字以上）+ フォーマット選択 → フロントエンド（`/src/app/article/page.tsx`）
+2. `/api/generate`へのAPIリクエスト → Edge Function（`/src/app/api/generate/route.ts`）
+3. フォーマットテンプレート + 概要 → GPT-4o用構造化プロンプト
+4. ストリーミングレスポンス → リアルタイム記事生成表示
 
-### Critical Implementation Details
+### 重要な実装詳細
 
-**Streaming Configuration** (Most Important):
+**ストリーミング設定**（最重要）:
 ```typescript
-// Frontend: useCompletion hook
-streamProtocol: 'text'  // Must match API response type
+// フロントエンド: useCompletion hook
+streamProtocol: 'text'  // APIレスポンスタイプと一致させる必要あり
 
-// Backend: API route  
-return result.toTextStreamResponse();  // Matches 'text' protocol
+// バックエンド: APIルート  
+return result.toTextStreamResponse();  // 'text'プロトコルと一致
 ```
 
-**Format System**: Templates in `/src/lib/formats.ts` use `{{placeholder}}` syntax for dynamic content replacement.
+**フォーマットシステム**: `/src/lib/formats.ts`のテンプレートは動的コンテンツ置換に`{{placeholder}}`構文を使用。
 
-**Edge Runtime**: All API routes use `export const runtime = 'edge'` for optimal performance.
+**Edge Runtime**: 最適なパフォーマンスのため、全APIルートで`export const runtime = 'edge'`を使用。
 
-## Current Status
-- ✅ MVP article generation (blog, news, SEO formats)
-- ✅ Japanese-optimized prompts and UI
-- ❌ Multi-model support (planned)
-- ❌ User authentication (planned)
-- ❌ Article history/export (planned)
+## 現在の状況
+- ✅ MVP記事生成機能（ブログ、ニュース、SEOフォーマット）
+- ✅ 日本語最適化されたプロンプトとUI
+- ❌ マルチモデル対応（予定）
+- ❌ ユーザー認証（予定）
+- ❌ 記事履歴・エクスポート機能（予定）
 
-Read `.claude/context.md` for complete project context and constraints.
+完全なプロジェクトコンテキストと制約については`.claude/context.md`を参照してください。
